@@ -17,11 +17,11 @@
    "source": [
     "# Introduction\n",
     "\n",
-    "Using this Python notebook you will:\n",
+    "Using this Python notebook, I did the following:\n",
     "\n",
-    "1.  Understand three Chicago datasets  \n",
-    "2.  Load the three datasets into three tables in a Db2 database\n",
-    "3.  Execute SQL queries to answer assignment questions \n"
+    "1.  Understand the 3 Chicago datasets  \n",
+    "2.  Load the three datasets into 3 new tables in a Db2 database\n",
+    "3.  Execute SQL queries to analyze the census, crime, and school demographics datasets. \n"
    ]
   },
   {
@@ -30,7 +30,7 @@
    "source": [
     "## Understand the datasets\n",
     "\n",
-    "To complete the assignment problems in this notebook you will be using three datasets that are available on the city of Chicago's Data Portal:\n",
+    "I used 3 datasets that are available on the city of Chicago's Data Portal:\n",
     "\n",
     "1.  <a href=\"https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork22-2022-01-01\">Socioeconomic Indicators in Chicago</a>\n",
     "2.  <a href=\"https://data.cityofchicago.org/Education/Chicago-Public-Schools-Progress-Report-Cards-2011-/9xs2-f89t?utm_medium=Exinfluencer&utm_source=Exinfluencer&utm_content=000026UJ&utm_term=10006555&utm_id=NA-SkillsNetwork-Channel-SkillsNetworkCoursesIBMDeveloperSkillsNetworkDB0201ENSkillsNetwork22-2022-01-01\">Chicago Public Schools</a>\n",
@@ -64,9 +64,9 @@
    "source": [
     "### Download the datasets\n",
     "\n",
-    "This assignment requires you to have these three tables populated with a subset of the whole datasets.\n",
+    "These 3 tables below are populated with a subset of the whole data sets.\n",
     "\n",
-    "In many cases the dataset to be analyzed is available as a .CSV (comma separated values) file, perhaps on the internet. Click on the links below to download and save the datasets (.CSV files):\n",
+    "The links to the datasets below were downloaded as .csv files:\n",
     "\n",
     "- <a href=\"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCensusData.csv\" target=\"_blank\">Chicago Census Data</a>\n",
     "\n",
@@ -82,7 +82,7 @@
     "  \n",
     "- <a href=\"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/data/ChicagoCrimeData.txt\" target=\"_blank\">Chicago Crime Data</a>\n",
     "\n",
-    "**NOTE:** Ensure you have downloaded the datasets using the links above instead of directly from the Chicago Data Portal. The versions linked here are subsets of the original datasets and have some of the column names modified to be more database friendly which will make it easier to complete this assignment.\n"
+   The versions of the data sets here are subsets of the original datasets and have some of the column names modified to be more database friendly.\n"
    ]
   },
   {
@@ -93,13 +93,11 @@
     "\n",
     "To analyze the data using SQL, it first needs to be stored in the database.\n",
     "\n",
-    "While it is easier to read the dataset into a Pandas dataframe and then PERSIST it into the database as we saw in Week 3 Lab 3, it results in mapping to default datatypes which may not be optimal for SQL querying. For example a long textual field may map to a CLOB instead of a VARCHAR. \n",
-    "\n",
-    "Therefore, **it is highly recommended to manually load the table using the database console LOAD tool, as indicated in Week 2 Lab 1 Part II**. The only difference with that lab is that in Step 5 of the instructions you will need to click on create \"(+) New Table\" and specify the name of the table you want to create and then click \"Next\". \n",
+    "I manually load the table using the database console LOAD tool. \n",
     "\n",
     "<img src=\"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/images/LoadingData.png\">\n",
     "\n",
-    "##### Now open the Db2 console, open the LOAD tool, Select / Drag the .CSV file for the first dataset, Next create a New Table, and then follow the steps on-screen instructions to load the data. Name the new tables as follows:\n",
+    "##### For each data set, I open the Db2 console, open the LOAD tool, upload the .CSV file, create a new table, and then load the data into the new table.\n",
     "\n",
     "1.  **CENSUS_DATA**\n",
     "2.  **CHICAGO_PUBLIC_SCHOOLS**\n",
@@ -112,9 +110,9 @@
    "source": [
     "### Connect to the database\n",
     "\n",
-    "Let us first load the SQL extension and establish a connection with the database\n",
+    "Load the SQL extension and establish a connection with the database\n",
     "\n",
-    "The following required modules are pre-installed in the Skills Network Labs environment. However if you run this notebook commands in a different Jupyter environment (e.g. Watson Studio or Ananconda) you may need to install these libraries by removing the `#` sign before `!pip` in the code cell below.\n"
+    "The following modules are pre-installed in the Skills Network Labs environment. However if you run this notebook commands in a different Jupyter environment (e.g. Watson Studio or Ananconda) you may need to install these libraries by removing the `#` sign before `!pip` in the code cell below.\n"
    ]
   },
   {
@@ -143,7 +141,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In the next cell enter your db2 connection string. Recall you created Service Credentials for your Db2 instance in first lab in Week 3. From your Db2 service credentials copy everything after db2:// (except the double quote at the end) and paste it in the cell below after ibm_db_sa://\n",
+    "My db2 connection string:\n",
     "\n",
     "<img src=\"https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DB0201EN-SkillsNetwork/labs/FinalModule_Coursera_V5/images/details.png\">\n"
    ]
@@ -165,9 +163,7 @@
     }
    ],
    "source": [
-    "# Remember the connection string is of the format:\n",
-    "# %sql ibm_db_sa://my-username:my-password@my-hostname:my-port/my-db-name?security=SSL\n",
-    "# Enter the connection string for your Db2 on Cloud database instance below\n",
+    "# Connection string for my Db2 on Cloud database instance:\n",
     "%sql ibm_db_sa://bcy01016:pPV11zoSkjmBw2pU@19af6446-6171-4641-8aba-9dcff8e1b6ff.c1ogj3sd0tgtu0lqde00.databases.appdomain.cloud:30699/bludb?security=SSL"
    ]
   },
@@ -177,11 +173,11 @@
    "source": [
     "## Problems\n",
     "\n",
-    "Now write and execute SQL queries to solve assignment problems\n",
+    "SQL queries for analysis:\n",
     "\n",
     "### Problem 1\n",
     "\n",
-    "##### Find the total number of crimes recorded in the CRIME table.\n"
+    "##### Total number of crimes recorded in the CRIME table.\n"
    ]
   },
   {
@@ -232,7 +228,7 @@
    "source": [
     "### Problem 2\n",
     "\n",
-    "##### List community areas with per capita income less than 11000.\n"
+    "##### Community areas with per capita income less than 11000.\n"
    ]
   },
   {
@@ -302,7 +298,7 @@
    "source": [
     "### Problem 3\n",
     "\n",
-    "##### List all case numbers for crimes  involving minors?(children are not considered minors for the purposes of crime analysis)\n",
+    "##### All case numbers for crimes involving minors(children are not considered minors for the purposes of crime analysis)\n",
     "\n"
    ]
   },
@@ -362,7 +358,7 @@
    "source": [
     "### Problem 4\n",
     "\n",
-    "##### List all kidnapping crimes involving a child?\n"
+    "##### All kidnapping crimes involving a child\n"
    ]
   },
   {
@@ -418,7 +414,7 @@
    "source": [
     "### Problem 5\n",
     "\n",
-    "##### What kinds of crimes were recorded at schools?\n"
+    "##### Various kinds of crimes that were recorded at schools\n"
    ]
   },
   {
@@ -492,7 +488,7 @@
    "source": [
     "### Problem 6\n",
     "\n",
-    "##### List the average safety score for each type of school.\n"
+    "##### Average safety score for each type of school.\n"
    ]
   },
   {
@@ -554,7 +550,7 @@
    "source": [
     "### Problem 7\n",
     "\n",
-    "##### List 5 community areas with highest % of households below poverty line \n"
+    "##### 5 community areas with highest % of households below poverty line \n"
    ]
   },
   {
@@ -628,7 +624,7 @@
    "source": [
     "### Problem 8\n",
     "\n",
-    "##### Which community area is most crime prone?\n"
+    "##### Community area with the most crimes\n"
    ]
   },
   {
@@ -693,7 +689,7 @@
    "source": [
     "### Problem 9\n",
     "\n",
-    "##### Use a sub-query to find the name of the community area with highest hardship index\n"
+    "##### Name of the community area with highest hardship index\n"
    ]
   },
   {
@@ -747,7 +743,7 @@
    "source": [
     "### Problem 10\n",
     "\n",
-    "##### Use a sub-query to determine the Community Area Name with most number of crimes?\n"
+    "##### Community Area Name with most number of crimes\n"
    ]
   },
   {
