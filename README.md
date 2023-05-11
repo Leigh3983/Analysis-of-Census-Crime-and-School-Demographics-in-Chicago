@@ -1,4 +1,4 @@
-# Analysis of Census, Crime, and School Demographics in Chicago
+# Analysis of Census, Crime, and School Demographics in Chicago using SQL
 
 I used SQL to query census, crime, and school demographics data sets, with the purpose of finding meaningful insights that can help improve educational outcomes for children and youth in the city of Chicago.
 
